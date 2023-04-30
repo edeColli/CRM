@@ -185,4 +185,5 @@ public class ClienteBuilder {
     public String toStringContatos(){
         return "Os dados de contatos são: E-mail " + getEmail() + ", endereço " + getEndereco() + " e telefone " + getTelefone();
     }
+
 }
