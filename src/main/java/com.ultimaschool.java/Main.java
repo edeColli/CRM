@@ -6,10 +6,14 @@ public class Main {
 
     public static void main(String[] args){
 
-        Cliente clienteF = new Cliente("123.456.789-00", "joana@mail.com", "Joana Maria Rocha", 'F');
+        Cliente clienteF = new Cliente("Joana", "Maria","Rocha","123.456.789-00",
+                "10/01/1993", 'F', "joana@mail.com", "Av. Brasil",
+                "(83) 9999-9999");
         System.out.println(clienteF.toString());
 
-        Cliente clienteM = new Cliente("999.888.777-55", "rogerio@mail.com", "Rogerio Azevedo", 'M');
+        Cliente clienteM = new Cliente("Rogerio", "","Azevedo","999.888.777-55",
+                "09/06/1981", 'M', "rogerio@mail.com", "Av. Flores",
+                "(83) 8888-8888");
         System.out.println(clienteM.toString());
     }
 }
