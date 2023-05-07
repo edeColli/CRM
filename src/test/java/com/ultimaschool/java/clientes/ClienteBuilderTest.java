@@ -75,8 +75,8 @@ public class ClienteBuilderTest {
         Assertions.assertEquals(clienteBuilder.getEmail(), "username@domain.com");
     }
 
-    @Test (expected = InvalidEmailException.class)
-    public void testSetEmailFailure() throws InvalidEmailException {
+    @Test
+    public void testSetEmailFailure() throws InvalidEmailException{
         Assert.assertThrows(InvalidEmailException.class, () -> clienteBuilder2.setEmail("username.@domain.com"));
         Assert.assertThrows(InvalidEmailException.class, () -> clienteBuilder2.setEmail(".user.name@domain.com"));
         Assert.assertThrows(InvalidEmailException.class, () -> clienteBuilder2.setEmail("user-name@domain.com."));
@@ -102,8 +102,8 @@ public class ClienteBuilderTest {
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder.setTelefone("55-555555555"));
     }
 
-    @Test(expected = InvalidPhoneException.class)
-    public void testSetTelefoneFailure() throws InvalidPhoneException{
+    @Test
+    public void testSetTelefoneFailure() throws InvalidPhoneException {
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("444444444"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("(99) 99999.9999"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("(99)99999.9999"));
