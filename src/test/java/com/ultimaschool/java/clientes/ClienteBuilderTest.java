@@ -1,5 +1,6 @@
 package com.ultimaschool.java.clientes;
 
+import com.ultimaschool.java.exceptions.InvalidDateException;
 import com.ultimaschool.java.exceptions.InvalidPhoneException;
 import org.junit.After;
 import org.junit.Assert;
@@ -15,7 +16,7 @@ public class ClienteBuilderTest {
     private ClienteBuilder clienteBuilder2;
 
     @Before
-    public void setUp() {
+    public void setUp() throws InvalidDateException {
         clienteBuilder2 = new ClienteBuilder();
         clienteBuilder = new ClienteBuilder().comIdentificacao("Joana", "Maria",
                 "Rocha","123.456.789-00","10/01/1993", 'F').comContatos(
@@ -29,11 +30,18 @@ public class ClienteBuilderTest {
     }
 
     @Test
-    public void testSetDataDeNascimento() {
+    public void testSetDataDeNascimento() throws InvalidDateException {
         clienteBuilder.setDataDeNascimento("01/01/2002");
         Assertions.assertEquals(clienteBuilder.getDataDeNascimento(), "01/01/2002");
         clienteBuilder2.setDataDeNascimento("01/10/1952");
         Assertions.assertEquals(clienteBuilder2.getDataDeNascimento(), "01/10/1952");
+    }
+
+    @Test
+    public void testSetDataNascimentoFailure() throws InvalidDateException {
+        Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("35/13/1999"));
+        Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("35/12/1999"));
+        Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("01/13/1999"));
     }
 
     @Test
@@ -92,7 +100,7 @@ public class ClienteBuilderTest {
     }
 
     @Test
-    public void testSetTelefone() {
+    public void testSetTelefone() throws InvalidPhoneException{
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder.setTelefone("(99) 99999-9999"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder.setTelefone("(99)99999-9999"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder.setTelefone("(88)88888-8888"));
@@ -103,7 +111,7 @@ public class ClienteBuilderTest {
     }
 
     @Test
-    public void testSetTelefoneFailure() throws InvalidPhoneException {
+    public void testSetTelefoneFailure() {
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("444444444"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("(99) 99999.9999"));
         Assert.assertThrows(InvalidPhoneException.class, () -> clienteBuilder2.setTelefone("(99)99999.9999"));
@@ -137,15 +145,16 @@ public class ClienteBuilderTest {
     @Test
     public void testGetGenero(){
         Assertions.assertEquals(clienteBuilder.getGenero(),'F');
-//        Assertions.assertEquals(clienteBuilder2.getGenero(),'');
+        clienteBuilder2.setGenero('M');
+        Assertions.assertEquals(clienteBuilder2.getGenero(),'M');
     }
 
     @Test
     public void testSetGenero(){
         clienteBuilder.setGenero('M');
         Assertions.assertEquals(clienteBuilder.getGenero(),'M');
-//        clienteBuilder2.setGenero('X');
-//        Assertions.assertEquals(clienteBuilder2.getGenero(),'');
+        clienteBuilder2.setGenero('F');
+        Assertions.assertEquals(clienteBuilder2.getGenero(),'F');
     }
 
     @Test

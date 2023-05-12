@@ -2,11 +2,12 @@ package com.ultimaschool.java;
 
 import com.ultimaschool.java.clientes.Cliente;
 import com.ultimaschool.java.clientes.ClienteBuilder;
+import com.ultimaschool.java.exceptions.InvalidDateException;
 import com.ultimaschool.java.exceptions.InvalidEmailException;
 
 public class Main {
 
-    public static void main(String[] args) throws InvalidEmailException {
+    public static void main(String[] args) throws InvalidEmailException, InvalidDateException {
 
         Cliente clienteF = new Cliente("Joana", "Maria","Rocha","123.456.789-00",
                 "10/01/1993", 'F', "joana@mail.com", "Av. Brasil",
