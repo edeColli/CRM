@@ -6,6 +6,8 @@ import java.util.*;
 
 public class Cliente {
 
+    final private static String DATA_FORMAT = "dd/MM/yyyy";
+
     private String primeiroNome;
     private String nomesDoMeio;
     private String sobrenome;
@@ -41,7 +43,7 @@ public class Cliente {
         Calendar calendario = Calendar.getInstance();
         Date dataConversao;
         try {
-            dataConversao = definirFormatoData("dd/MM/yyyy").parse(data);
+            dataConversao = definirFormatoData(DATA_FORMAT).parse(data);
         } catch (ParseException e) {
             System.out.println("Erro de conversão de data");
             throw new RuntimeException(e);
@@ -58,7 +60,7 @@ public class Cliente {
 
     private SimpleDateFormat definirFormatoData(String formatoData){
         if (formatoData.equals("")){
-            return new SimpleDateFormat("dd/MM/yyyy");
+            return new SimpleDateFormat(DATA_FORMAT);
         } else {
             return new SimpleDateFormat(formatoData);
         }

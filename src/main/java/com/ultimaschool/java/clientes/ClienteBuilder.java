@@ -2,6 +2,7 @@ package com.ultimaschool.java.clientes;
 
 import com.ultimaschool.java.exceptions.InvalidEmailException;
 import com.ultimaschool.java.exceptions.InvalidPhoneException;
+import com.ultimaschool.java.exceptions.InvalidDateException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,9 +26,11 @@ public class ClienteBuilder {
     //Sem pontos consecutivos.
     //Sem @ consecutivos
 
+    private static final String DATE_FORMAT = "dd/MM/yyyy";
+    private static final String DATE_REGEX = "^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$";
     private static final String EMAIL_REGEX = "^(?=.{1,64}@)(?!.*@@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-
     private static final String PHONE_REGEX = "/(\\([0-9]{2}\\)\\s?[0-9]{4,5}-?[0-9]{3,4})|([0-9]{10,11})|([0-9]{2}\\s?[0-9]{8,9})/gm";
+
     private String primeiroNome;
     private String nomesDoMeio;
     private String sobrenome;
@@ -41,7 +44,7 @@ public class ClienteBuilder {
     private String telefone;
 
     public ClienteBuilder comIdentificacao(String primeiroNome, String nomesDoMeio, String sobrenome, String cpf,
-                                           String dataDeNascimento, char genero){
+                                           String dataDeNascimento, char genero) throws InvalidDateException {
         this.primeiroNome = primeiroNome;
         this.nomesDoMeio = nomesDoMeio;
         this.sobrenome = sobrenome;
@@ -135,8 +138,12 @@ public class ClienteBuilder {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(String dataDeNascimento) {
-        this.dataDeNascimento = dataDeNascimento;
+    public void setDataDeNascimento(String dataDeNascimento) throws InvalidDateException {
+        if (dataDeNascimento.matches(DATE_REGEX)) {
+            this.dataDeNascimento = dataDeNascimento;
+        } else {
+            throw new InvalidDateException(dataDeNascimento);
+        }
     }
 
     public int getIdadeAtual() {
@@ -159,21 +166,25 @@ public class ClienteBuilder {
         return telefone;
     }
 
-    private int definirIdadeAtual(){
+    private int definirIdadeAtual() throws InvalidDateException {
         return recuperarAnoData(new Date()) - recuperarAnoData(dataDeNascimento);
     }
 
-    private int recuperarAnoData(String data){
-        Calendar calendario = Calendar.getInstance();
-        Date dataConversao;
-        try {
-            dataConversao = definirFormatoData("dd/MM/yyyy").parse(data);
-        } catch (ParseException e) {
-            System.out.println("Erro de conversão de data");
-            throw new RuntimeException(e);
+    private int recuperarAnoData(String data) throws InvalidDateException {
+        if (data.matches(DATE_REGEX)) {
+            Calendar calendario = Calendar.getInstance();
+            Date dataConversao;
+            try {
+                dataConversao = definirFormatoData(DATE_FORMAT).parse(data);
+            } catch (ParseException e) {
+                System.out.println("Erro de conversão de data");
+                throw new RuntimeException(e);
+            }
+            calendario.setTime(dataConversao);
+            return calendario.get(Calendar.YEAR);
+        } else {
+            throw new InvalidDateException(data);
         }
-        calendario.setTime(dataConversao);
-        return calendario.get(Calendar.YEAR);
     }
 
     private int recuperarAnoData(Date data){
@@ -184,7 +195,7 @@ public class ClienteBuilder {
 
     private SimpleDateFormat definirFormatoData(String formatoData){
         if (formatoData.equals("")){
-            return new SimpleDateFormat("dd/MM/yyyy");
+            return new SimpleDateFormat(DATE_FORMAT);
         } else {
             return new SimpleDateFormat(formatoData);
         }
