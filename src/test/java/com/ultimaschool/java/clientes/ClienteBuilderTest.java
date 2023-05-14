@@ -42,6 +42,8 @@ public class ClienteBuilderTest {
         Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("35/13/1999"));
         Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("35/12/1999"));
         Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("01/13/1999"));
+        Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("01-12-1999"));
+        Assert.assertThrows(InvalidDateException.class, () -> clienteBuilder2.setDataDeNascimento("01.12.1999"));
     }
 
     @Test
