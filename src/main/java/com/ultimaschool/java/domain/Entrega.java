@@ -1,5 +1,7 @@
 package com.ultimaschool.java.domain;
 
+import com.ultimaschool.java.enums.Status_entrega;
+
 import java.util.Date;
 
 public class Entrega {
@@ -8,7 +10,16 @@ public class Entrega {
     private int id_pedido;
     private String nome_entregador;
     private String nome_receptor;
-    private enum Status_entrega{CONFIRMADO, RECEBIDO, SAIU_PARA_ENTREGA, DEVOLVIDO, PAGO};
+
+    public Status_entrega getStatus_entrega() {
+        return status_entrega;
+    }
+
+    public void setStatus_entrega(Status_entrega status_entrega) {
+        this.status_entrega = status_entrega;
+    }
+
+    private Status_entrega status_entrega;
     private int qtd_tentativas_entrega;
 
     private Date data_entrega;
@@ -68,6 +79,7 @@ public class Entrega {
                 ", id_pedido=" + id_pedido +
                 ", nome_entregador='" + nome_entregador + '\'' +
                 ", nome_receptor='" + nome_receptor + '\'' +
+                ", status_entrega=" + status_entrega +
                 ", qtd_tentativas_entrega=" + qtd_tentativas_entrega +
                 ", data_entrega=" + data_entrega +
                 '}';

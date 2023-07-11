@@ -30,7 +30,7 @@ public class EntregaRepository {
             entrega.setNome_receptor(resultSet.getString("nome_receptor"));
             entrega.setQtd_tentativas_entrega(resultSet.getInt("qtd_tentativas_entrega"));
             entrega.setData_entrega(resultSet.getDate("data_entrega"));
-//            entrega.setStatus_entrega(resultSet.getInt("quantidade"));
+//            entrega.setStatus_entrega(resultSet.getInt("status_entrega"));
         }
         return entregas;
     }
@@ -50,7 +50,7 @@ public class EntregaRepository {
             entrega.setNome_receptor(resultSet.getString("nome_receptor"));
             entrega.setQtd_tentativas_entrega(resultSet.getInt("qtd_tentativas_entrega"));
             entrega.setData_entrega(resultSet.getDate("data_entrega"));
-//            entrega.setStatus_entrega(resultSet.getInt("quantidade"));
+//            entrega.setStatus_entrega(resultSet.getInt("status_entrega"));
         }
 
         return entrega;

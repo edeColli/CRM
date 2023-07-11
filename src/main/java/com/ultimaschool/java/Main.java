@@ -41,7 +41,7 @@ public class Main {
         ClientRepository clientRepository = new ClientRepository();
         clientRepository.findAll().forEach(System.out::println);
 
-        Client client =  clientRepository.findById(1);
+        Cliente client =  clientRepository.findById(1);
         if (client != null){
             System.out.println(client.toString());
             client.setAge(42);

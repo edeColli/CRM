@@ -1,5 +1,7 @@
 package com.ultimaschool.java.domain;
 
+import com.ultimaschool.java.enums.Status_pedido;
+
 import java.util.Date;
 
 public class Pedido {
@@ -10,7 +12,16 @@ public class Pedido {
 
     private Date datahora_entrega;
     private double valor_pedido;
-    private enum status_pedido {CRIADO, AGUARDANDO_PAGAMENTO, ERRO_PAGAMENTO, PAGO, PREPARANDO_ENTREGA, ENVIADO, CANCELADO, ENTREGUE}
+
+    public Status_pedido getStatus_pedido() {
+        return status_pedido;
+    }
+
+    public void setStatus_pedido(Status_pedido status_pedido) {
+        this.status_pedido = status_pedido;
+    }
+
+    private Status_pedido status_pedido;
 
     public int getId() {
         return id;
@@ -60,6 +71,7 @@ public class Pedido {
                 ", datahora_criacao=" + datahora_criacao +
                 ", datahora_entrega=" + datahora_entrega +
                 ", valor_pedido=" + valor_pedido +
+                ", status_pedido=" + status_pedido +
                 '}';
     }
 }
